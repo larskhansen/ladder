@@ -24,12 +24,12 @@ jobs:
         if: success()
         id: prepare
         run: |
-          echo ::set-output name=docker_platforms::linux/amd64
-          echo ::set-output name=docker_username::larskhansen
-          echo ::set-output name=docker_image::docker.io/larskhansen/ladder-dev
-          echo ::set-output name=version::${GITHUB_REF#refs/*/}
-          echo ::set-output name=hash::${GITHUB_SHA}
-          echo ::set-output name=build_number::${GITHUB_RUN_NUMBER}
+          echo "docker_platforms=linux/amd64" >> $GITHUB_OUTPUT
+          echo "docker_username=larskhansen" >> $GITHUB_OUTPUT
+          echo "docker_image=docker.io/larskhansen/ladder-dev" >> $GITHUB_OUTPUT
+          echo "version=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+          echo "hash=${GITHUB_SHA}" >> $GITHUB_OUTPUT
+          echo "build_number=${GITHUB_RUN_NUMBER}" >> $GITHUB_OUTPUT
       - name: Docker Login
         if: success()
         env:
