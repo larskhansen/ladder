@@ -6,7 +6,6 @@ WORKDIR /home/node/app
 COPY --chown=node:node . .
 
 # install dependencies
-USER node
 RUN npm set progress=true && \
     npm config set depth 0 && \
     npm install && \
