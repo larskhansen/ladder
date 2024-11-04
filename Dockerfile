@@ -1,6 +1,6 @@
 FROM node:20 AS build
 
-WORKDIR /usr/src/app
+WORKDIR /home/node/app
 
 # copy project file
 COPY --chown=node:node . .
