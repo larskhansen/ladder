@@ -1,6 +1,12 @@
 import { Col } from "react-bootstrap";
 
-const Time = ({ time, deleteTime }: { time: number; deleteTime: CallableFunction }) => {
+const Time = ({
+  time,
+  deleteTime,
+}: {
+  time: number;
+  deleteTime: CallableFunction;
+}) => {
   const onClick = () => {
     deleteTime(time);
   };

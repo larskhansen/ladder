@@ -9,7 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import styles from "@/app/page.module.scss";
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 import Time from "@/components/time/time";
 
 const Day = ({ name }: { name: string }) => {
