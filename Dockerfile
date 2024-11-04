@@ -1,6 +1,6 @@
 FROM node:20 AS build
 
-WORKDIR /home/node/app
+WORKDIR /usr/src/app
 
 # copy project file
 COPY --chown=node:node . .
@@ -17,13 +17,13 @@ RUN npm run lint
 
 FROM node:20 AS release
 
-WORKDIR /home/node/app
+WORKDIR /usr/src/app
 
-COPY --chown=node:node --from=build /home/node/app/node_modules ./node_modules
-COPY --chown=node:node --from=build /home/node/app/.next ./.next
-COPY --chown=node:node --from=build /home/node/app/package*.json ./
-COPY --chown=node:node --from=build /home/node/app/next.config.ts ./
-COPY --chown=node:node --from=build /home/node/app/tsconfig.json ./tsconfig.json
+COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
+COPY --chown=node:node --from=build /usr/src/app/.next ./.next
+COPY --chown=node:node --from=build /usr/src/app/package*.json ./
+COPY --chown=node:node --from=build /usr/src/app/next.config.ts ./
+COPY --chown=node:node --from=build /usr/src/app/tsconfig.json ./tsconfig.json
 
 EXPOSE 3000
 USER node
