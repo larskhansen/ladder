@@ -1,4 +1,4 @@
-import { Col } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 
 const Time = ({
   time,
@@ -23,10 +23,16 @@ const Time = ({
 
   return (
     <Col sd={12} md={6} lg={3}>
-      <span style={{ border: "1px solid #000", padding: ".25rem" }}>
-        {hour + ":" + minute}
-      </span>
-      <button onClick={onClick}>X</button>
+      <div className="input-group mb-3">
+        <span className="border border-dark text-center p-1">
+          {hour + ":" + minute}
+        </span>
+        <div className="input-group-append">
+          <Button className="rounded-0 btn btn-danger" onClick={onClick}>
+            X
+          </Button>
+        </div>
+      </div>
     </Col>
   );
 };

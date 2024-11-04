@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Button,
   Col,
   Modal,
   ModalBody,
@@ -9,7 +10,10 @@ import {
   Row,
 } from "react-bootstrap";
 import styles from "@/app/page.module.scss";
-import React, { ChangeEvent, useState } from "react";
+import React, {
+  ChangeEvent,
+  useState,
+} from "react";
 import Time from "@/components/time/time";
 
 const Day = ({ name }: { name: string }) => {
@@ -81,8 +85,18 @@ const Day = ({ name }: { name: string }) => {
     setTimes(localTimes.filter((item) => item !== deletionTime));
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setTime(e.target.value);
+  };
+
+  const copy2clipboard = () => {
+    const copyText = document.getElementById("text-to-copy");
+    // Select the text field
+    if (copyText?.textContent !== null && copyText?.textContent !== undefined) {
+      navigator.clipboard.writeText(copyText?.textContent.toString());
+      // Alert the copied text
+      alert("Copied the text: " + copyText?.textContent);
+    }
   };
 
   return (
@@ -128,13 +142,14 @@ const Day = ({ name }: { name: string }) => {
             })}
         </Row>
         &nbsp;
-        <Row style={{ display: active ? "block" : "none" }}>
-          <Col>
-            <pre>
+        <Row style={{ display: active && times.length > 0 ? "block" : "none" }}>
+          <Col sm={12}>
+            <pre id="text-to-copy">
               **{name} {month} {correctDay}
               {day}**
               <br />
               Select all the times you can
+              <br />
               <br />
               {times &&
                 times.map((entry, index) => {
@@ -146,6 +161,14 @@ const Day = ({ name }: { name: string }) => {
                 })}
               :no_entry: Cannot race
             </pre>
+          </Col>
+          <Col sm={12} className="pb-3">
+            <Button
+              onClick={copy2clipboard}
+              className="float-end btn btn-success"
+            >
+              Copy to clipboard
+            </Button>
           </Col>
         </Row>
       </Col>
