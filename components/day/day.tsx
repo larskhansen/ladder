@@ -51,16 +51,32 @@ const Day = ({ name }: { name: string }) => {
 
   const date = new Date(firstMonday);
   date.setDate(date.getDate() + weekDay);
-  //const unixTimestamp = Math.floor(date.getTime() / 1000);
-  const correctMonth: number = date.getMonth() + 1;
+  date.setHours(0, 0, 0);
+  //console.log("date", date.getTime());
+
+  const correctMonth:string = date.getMonth() > 10 ? "" : "0" + (date.getMonth() + 1).toString();
   const correctDay: string | number =
     date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+
   const weekDate: string =
     date.getFullYear() + "-" + correctMonth + "-" + correctDay;
+
   const month: string = date.toLocaleString("default", { month: "long" });
   const day: string = nth(parseInt(correctDay.toString()));
 
-  const [times, setTimes] = useState<number[]>([]);
+  const initialTimes:number[] = [
+    Math.floor(date.setHours(7,0,0) / 1000),
+    Math.floor(date.setHours(7,30,0) / 1000),
+    Math.floor(date.setHours(8,0,0) / 1000),
+    Math.floor(date.setHours(8,30,0) / 1000),
+    Math.floor(date.setHours(9,0,0) / 1000),
+    Math.floor(date.setHours(9,30,0) / 1000),
+    Math.floor(date.setHours(10,0,0) / 1000),
+    Math.floor(date.setHours(10,30,0) / 1000),
+    Math.floor(date.setHours(11,0,0) / 1000)
+  ];
+
+  const [times, setTimes] = useState<number[]>(initialTimes);
   const [time, setTime] = useState<string>("");
   const [active, setActive] = useState<boolean>(true);
   //Modal
@@ -73,6 +89,7 @@ const Day = ({ name }: { name: string }) => {
   };
   const saveTime = () => {
     date.setHours(parseInt(time.split(":")[0]), parseInt(time.split(":")[1]));
+    console.log("saveTime date", Math.floor(date.getTime() / 1000));
     const localTimes: number[] = JSON.parse(JSON.stringify(times));
     localTimes.push(Math.floor(date.getTime() / 1000));
     localTimes.sort();
